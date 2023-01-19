@@ -117,6 +117,15 @@ public class MyMain {
         }
         return longestNum;
     }
+    public static boolean isMagicSquare(int[][] mat) {
+        int rowCur = 0;
+        int rowPrev = 0;
+        for (int col = 0; col < mat.length; col ++){
+            rowCur += mat[0][col];
+        }
+
+        return false;
+    }
 
 
     public static void main(String[] args) {
