@@ -80,17 +80,17 @@ public class MyMain {
     // Returns the median of the 2D array mat
     // Remember that the array is sorted!
     public static double median(double[][] mat) {
-        int numRows = mat.length;
+        int nums = mat.length;
         int numCols = mat[0].length;
         double med = 0.0;
-        if (numRows % 2 != 0 && numCols % 2 != 0) {
-            med = mat[numRows/2] [numCols/2];
+        if (nums % 2 != 0 && numCols % 2 != 0) {
+            med = mat[nums/2] [numCols/2];
         }
-        if (numRows % 2 != 0 && numCols % 2 == 0) {
-            med = (mat[numRows/2][numCols/2 - 1] + mat[numRows/2][numCols/2])/2;
+        if (nums % 2 != 0 && numCols % 2 == 0) {
+            med = (mat[nums/2][numCols/2 - 1] + mat[nums/2][numCols/2])/2;
         }
-        if (numRows % 2 == 0 && numCols % 2 == 0) {
-            med = (mat[numRows/2 - 1][numCols - 1] + mat[numRows/2][0])/2;
+        if (nums % 2 == 0 && numCols % 2 == 0) {
+            med = (mat[nums/2 - 1][numCols - 1] + mat[nums/2][0])/2;
         }
         return med;
 }
@@ -118,17 +118,52 @@ public class MyMain {
         return longestNum;
     }
     public static boolean isMagicSquare(int[][] mat) {
-        int rowCur = 0;
-        int rowPrev = 0;
-        for (int col = 0; col < mat.length; col ++){
-            rowCur += mat[0][col];
+        int cur = 0;
+        int prev = 0;
+        int col1 = 1;
+        int col2 = mat[0].length - 1;
+        for (int row = 0; row < mat.length; row++) {
+            for (int col = 1; col < mat[0].length; col++) {
+                cur = mat[row][col];
+                prev = mat[row][col - 1];
+                if (cur != prev) {
+                    return false;
+                }
+            }
         }
-
-        return false;
+        for (int col = 0; col < mat[0].length; col++) {
+            for (int row = 1; row < mat.length; row++) {
+                cur = mat[row][col];
+                prev = mat[row - 1][col];
+                if (cur != prev) {
+                    return false;
+                }
+            }
+        }
+        for (int row = 1; row < mat.length; row++) {
+            cur = mat[row][col1];
+            prev = mat[row - 1][col1 - 1];
+            if (cur != prev) {
+                return false;
+            }
+            col1 ++;
+        }
+        for (int row = 0; row < mat.length - 1; row ++) {
+            cur = mat[row][col2];
+            prev = mat[row + 1][col2 - 1];
+            if (cur != prev) {
+                return false;
+            }
+            col2 --;
+        }
+        return true;
     }
 
 
     public static void main(String[] args) {
-        // Write some code here to test your methods!
-    }
+        int [][] a = { {2, 7, 1},
+                       {1, 1, 1},
+                       {1, 1, 1} };
+        System.out.println(isMagicSquare(a));
+   }
 }
