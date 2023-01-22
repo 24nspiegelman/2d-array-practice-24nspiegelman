@@ -118,52 +118,59 @@ public class MyMain {
         return longestNum;
     }
     public static boolean isMagicSquare(int[][] mat) {
-        int cur = 0;
-        int prev = 0;
-        int col1 = 1;
-        int col2 = mat[0].length - 1;
+        int magicSum = 0;
+        int sum = 0;
+        int col1 = 0;
+        for (int row = 0; row < 1; row++) {
+            for (int col = 0; col < mat[0].length; col++) {
+                magicSum += mat[row][col];
+            }
+        }
         for (int row = 0; row < mat.length; row++) {
-            for (int col = 1; col < mat[0].length; col++) {
-                cur = mat[row][col];
-                prev = mat[row][col - 1];
-                if (cur != prev) {
+            sum = 0;
+            for (int col = 0; col < mat[0].length; col++) {
+                sum += mat[row][col];
+            }
+                if (sum != magicSum) {
                     return false;
                 }
-            }
         }
         for (int col = 0; col < mat[0].length; col++) {
-            for (int row = 1; row < mat.length; row++) {
-                cur = mat[row][col];
-                prev = mat[row - 1][col];
-                if (cur != prev) {
+            sum = 0;
+            for (int row = 0; row < mat.length; row++) {
+                sum += mat[row][col];
+            }
+                if (sum != magicSum) {
                     return false;
                 }
-            }
         }
-        for (int row = 1; row < mat.length; row++) {
-            cur = mat[row][col1];
-            prev = mat[row - 1][col1 - 1];
-            if (cur != prev) {
-                return false;
-            }
+        sum = 0;
+        for (int row = 0; row < mat.length; row++) {
+            sum += mat[row][col1];
             col1 ++;
         }
-        for (int row = 0; row < mat.length - 1; row ++) {
-            cur = mat[row][col2];
-            prev = mat[row + 1][col2 - 1];
-            if (cur != prev) {
+            if (sum != magicSum) {
                 return false;
             }
-            col2 --;
+
+        col1 = 0;
+        sum = 0;
+        for (int row = mat.length - 1; row >= 0; row --) {
+            sum += mat[row][col1];
+            col1 ++;
+        }
+
+        if (sum != magicSum) {
+            return false;
         }
         return true;
     }
 
 
     public static void main(String[] args) {
-        int [][] a = { {2, 7, 1},
-                       {1, 1, 1},
-                       {1, 1, 1} };
+        int [][] a = { {2, 7, 6},
+                       {9, 5, 1},
+                       {4, 3, 8} };
         System.out.println(isMagicSquare(a));
    }
 }
